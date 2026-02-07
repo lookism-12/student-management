@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/lookism-12/student-management.git'
+                git url: 'https://github.com/lookism-12/student-management.git', branch: 'main'
             }
         }
 
@@ -25,10 +25,10 @@ pipeline {
 
     post {
         success {
-            echo 'Build succeeded!'
+            echo 'Build and tests succeeded!'
         }
         failure {
-            echo 'Build failed!'
+            echo 'Build or tests failed!'
         }
     }
 }
