@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'jdk17'       // Matches the JDK tool name you configured
-        maven 'maven'     // Matches the Maven tool name you configured
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+        PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
     }
 
     stages {
@@ -15,14 +15,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building project...'
+                sh 'java -version'
                 sh 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
                 sh 'mvn test'
             }
         }
