@@ -1,17 +1,23 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'jdk17'       // The JDK name you configured in Jenkins
+        maven 'maven'     // The Maven name you configured in Jenkins
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/lookism-12/student-management.git', branch: 'main'
+                // Checkout the code from your GitHub repo
+                git branch: 'main', url: 'https://github.com/lookism-12/student-management.git'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building project...'
-                sh 'mvn clean compile'
+                echo 'Building the project...'
+                sh 'mvn clean install'
             }
         }
 
@@ -25,7 +31,7 @@ pipeline {
 
     post {
         success {
-            echo 'Build and tests succeeded!'
+            echo 'Build and tests completed successfully!'
         }
         failure {
             echo 'Build or tests failed!'
